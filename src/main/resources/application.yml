@@ -1,0 +1,8 @@
+server:
+  port: 8050
+
+spring:
+  security:
+    user:
+      name: pasindu
+      password: 123
