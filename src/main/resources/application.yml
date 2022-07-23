@@ -2,7 +2,7 @@ server:
   port: 8050
 
 spring:
-  security:
-    user:
-      name: pasindu
-      password: 123
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
