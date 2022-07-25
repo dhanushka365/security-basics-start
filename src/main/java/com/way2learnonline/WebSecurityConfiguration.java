@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -22,20 +23,32 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	
 	// TODO-3 Uncomment the below to add httpBasic authentication for your app
 	protected void configure(HttpSecurity http) throws Exception {
-		
+
+		//we are not using basic authentication
+		/*
 		  http .authorizeRequests() 
 		  		.anyRequest().authenticated() 
 		  		.and() .httpBasic();
-		
+		*/
+		http.authorizeRequests()
+				.antMatchers("/mylogin","/h2-console")
+				.permitAll()
+				.anyRequest()
+				.authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/mylogin").defaultSuccessUrl("/hello",true)
+				.and().csrf().disable().rememberMe().key("mykey");
+
 	}
 
-	
-	
-	
-	//TODO-11 uncomment the below to configure jdbc authentication using DelegatingPasswordEncoder
-	
+	//Ignore security for css files
+	@Override
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/css/**","/webjars/**");
+	}
 
-	  
+	//TODO-11 uncomment the below to configure jdbc authentication using DelegatingPasswordEncoder
 	 @Autowired
 	private DataSource dataSource;
 	

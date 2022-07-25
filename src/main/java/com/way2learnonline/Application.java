@@ -34,7 +34,7 @@ public class Application {
 	// TODO-13 When ever request comes to tomcat at 8080, we want a redirect to 8443 using https.
 	// To enable that we have to customize tomcat by uncommenting below
 	
-	/*
+
 	
 	 @Bean
     public ServletWebServerFactory servletContainer() {
@@ -56,12 +56,12 @@ public class Application {
     private Connector redirectConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(8080);
+        connector.setPort(8050);
         connector.setRedirectPort(8443);
         return connector;
     }
     
-    */
+
 	 
 	
 }
